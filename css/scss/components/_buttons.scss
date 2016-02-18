@@ -1,0 +1,50 @@
+/* -------------- Outlined Button -------------------- */
+.btn-default {
+	border-color: $secondary-border;
+	color: $primary-text;
+	@include font-size(14px);
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active {
+	color: $white;
+	background-color: $secondary-border;
+	border-color: $secondary-border;
+}
+
+/* ---------------- Solid Button ---------------------- */
+.btn-solid {
+	background-color: $secondary-border;
+	border-color: $secondary-border;
+	color: $white;
+	@include font-size(14px);
+}
+
+.btn-solid:hover,
+.btn-solid:focus,
+.btn-solid:active {
+	background-color: darken($secondary-border, 10%);
+	color: $white;
+}
+
+/* ---------------- Dark Button --------------------------- */
+.btn-dark {
+	@extend .btn-solid;
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+	background-color: transparent;
+}
+
+.input-group-btn .btn {
+	border-width: 1px;
+	background-color: $secondary-border;
+	color: $white;
+}
+
+.input-group-btn .btn:hover {
+	background-color: darken($secondary-border, 10%);
+}

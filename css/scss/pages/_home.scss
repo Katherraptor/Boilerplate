@@ -1,0 +1,26 @@
+.sr-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+h1 {
+  color: red; }
+
+  figure {
+  	display: block;
+  	max-width: 400px;
+  	float: right;
+  }
+
+  figcaption {
+  	font-style: italic;
+  	text-align: center;
+  }
+
+  img {
+  	max-width: 100%;
+  }

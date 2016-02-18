@@ -1,0 +1,22 @@
+{
+  "name": "WebAdvanced Project Boilerplate",
+  "authors": [
+    "Caitlin <caitlin.bailey@webadvanced.com>",
+    "Katherine <katherine.shaw@webadvanced.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}

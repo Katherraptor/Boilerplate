@@ -1,0 +1,245 @@
+@mixin position($position, $args) {
+  @each $o in top right bottom left {
+        $i: index($args, $o);
+
+    @if $i and $i + 1<= length($args) and type-of(nth($args, $i + 1)) == number  {
+          #{$o}: nth($args, $i + 1);
+    }
+  }
+
+  position: $position;
+}
+
+@mixin absolute($args) {
+        @include position("absolute", $args);
+}
+
+@mixin fixed($args) {
+        @include position("fixed", $args);
+}
+
+@mixin relative($args) {
+        @include position("relative", $args);
+}
+
+/*
+  @include absolute(top 0 left 1em);
+  	position: absolute;
+	top: 0;
+	left: 1em;
+  @include fixed(top 1em left "WAT? A STRING?!" right 10% bottom);
+  	position: fixed;
+	top: 1em;
+	right: 10%;
+*/
+
+@mixin font-size($size) {
+	font-size: $size;
+	font-size: calculateRem($size);
+}
+
+@mixin line-height($heightValue: 12) {
+	line-height: $heightValue + px;
+	line-height: (0.125 * $heightValue) + rem;
+}
+
+/*
+  @include font-size(14px)
+	font-size: 14px; //Will be overridden if browser supports rem
+	font-size: 0.8rem;
+*/
+
+@mixin box-sizing($box-model) {
+	-webkit-box-sizing: $box-model;
+	-moz-box-sizing: $box-model;
+	box-sizing: $box-model;
+}
+
+/*
+  @include box-sizing(border-box);
+  	-webkit-box-sizing:border-box;
+  	-moz-box-sizing: border-box;
+  	box-sizing: border-box;
+*/
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+/*
+  @include keyframes(slide-down) { 0% { opacity: 1; } 90% { opacity: 0; }}
+*/
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str	};
+	-o-animation: #{$str};
+	animation: #{$str};
+}
+
+/*
+  @include animation('slide-down 5s 3');
+*/
+
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
+	zoom: 1;
+}
+
+/*
+  @include opacity(.0.8);
+*/
+
+@mixin box-emboss($opacity, $opacity2) {
+	box-shadow:white($opacity) 0 1px 0, inset black($opacity) 0 1px 0;
+}
+
+@mixin letterpress($opacity) {
+	text-shadow: white($opacity) 0 1px 0;
+}
+
+@mixin triangle($direction, $size: 6, $color: #222) {
+	content: ' ';
+	display: block;
+	position: absolute;
+	height: 0;
+	width: 0;
+	@if ($direction == 'up') {
+		border-bottom: pixelify($size) solid $color;
+		border-left: pixelify(pythagorean($size)) solid transparent;
+		border-right: pixelify(pythagorean($size)) solid transparent;
+	}
+	@else if ($direction == 'down') {
+		border-top: pixelify($size) solid $color;
+		border-left: pixelify(pythagorean($size)) solid transparent;
+		border-right: pixelify(pythagorean($size)) solid transparent;
+	}
+	@else if ($direction == 'left') {
+		border-top: pixelify(pythagorean($size)) solid transparent;
+		border-bottom: pixelify(pythagorean($size)) solid transparent;
+		border-right: pixelify($size) solid $color;
+	}
+	@else if ($direction == 'right') {
+		border-top: pixelify(pythagorean($size)) solid transparent;
+		border-bottom: pixelify(pythagorean($size)) solid transparent;
+		border-left: pixelify($size) solid $color;
+	}
+}
+
+/*
+  @include triangle within a pseudo element and add positioning properties
+  $direction: up, down, left, right
+*/
+
+@mixin respondTo($media) {
+	@if $media == iphone {
+		@media only screen and (max-width: $smallest) { @content; }
+	}
+	@else if $media == xs {
+		@media only screen and (max-width: $smartphones) { @content; }
+	}
+	@else if $media == sm {
+		@media only screen and (max-width: $tablet) { @content; }
+	}
+	@else if $media == md {
+		@media only screen and (max-width: $desktop) { @content; }
+	}
+	@else if $media == lg {
+		@media only screen and (max-width: $largest) { @content; }
+	}
+}
+
+/*
+  @include respondTo(iphone) { width: 100%; float: none; margin: 0; }
+  	@media only screen and (max-width: 320px){
+	  .sidebar{width: 100%; float: none; margin: 0;}
+	}
+
+*/
+
+@mixin ghostVerticalAlign($pseudoEl: before) {
+	&:#{$pseudoEl} {
+		content: ' ';
+		display: inline-block;
+		vertical-align: middle;
+		height: 100%;
+		width: .1px;
+	}
+}
+
+@mixin truncateText($overflow: ellipsis) {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: $overflow; // values are: clip, ellipsis, or a string
+}
+
+@mixin tooltip($bg-color, $content: attr(data-tooltip), $direction: top) {
+	position: relative;
+	&:before, &:after {
+		display: none;
+		z-index: 98;
+	}
+	&:hover {
+		&:after {
+			content: $content;
+			display: block;
+			position: absolute;
+			height: 12px; // makes total height including padding 22px
+			padding: 6px;
+			font-size: 12px;
+			white-space: nowrap;
+			color: #fff;
+			@include text-shadow(1px 1px #000);
+			background-color:$bg-color;
+		}
+		@if ($direction == 'top') {
+			&:before {
+				@include triangle(down, 6px, $bg-color);
+				top: -6px;
+				margin-top: 0;
+				left: 47%;
+			}
+			&:after {
+				top: -28px;
+				left: 47%;
+				margin-left: -20px;
+			}
+		}
+		@else if ($direction == 'bottom') {
+			&:before {
+				@include triangle(up, 6px, $bg-color);
+				top: auto;
+				margin-top: 0;
+				bottom: -6px;
+				left: 47%;
+			}
+			&:after {
+				bottom: -28px;
+				left: 47%;
+				margin-left: -20px;
+			}
+		}
+	}
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+	background: $color;
+	background: rgba($color, $opacity);
+}

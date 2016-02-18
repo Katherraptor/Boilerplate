@@ -1,0 +1,157 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700);
+
+html, body, h1, h2, h3, h4, h5, h6, p, a, form, select, option, label {
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+	@include font-size(48px);
+	font-weight: 800;
+	@include respondTo(sm) {
+		@include font-size(38px);
+	}
+}
+
+h2 {
+	@include font-size(28px);
+	font-weight: 800;
+	color: $secondary-text;
+	@include respondTo(sm) {
+		@include font-size(28px);
+	}
+}
+
+h3 {
+	@include font-size(20px);
+	font-weight: 800;
+	@include respondTo(sm) {
+		@include font-size(20px);
+	}
+}
+
+h4 {
+	@include font-size(16px);
+	color: $tertiary-text;
+	@include respondTo(sm) {
+		@include font-size(16px);
+	}
+}
+
+h5 {
+	@include font-size(14px);
+	font-weight: 800;
+	text-transform: uppercase;
+	@include respondTo(sm) {
+		@include font-size(14px);
+	}
+}
+
+h6 {
+	@include font-size(12px);
+	font-weight: 800;
+	@include respondTo(sm) {
+		@include font-size(12px);
+	}
+}
+
+p {
+	color: $primary-text;
+}
+
+p.lead {
+	color: $tertiary-text;
+	@include font-size(20px);
+	line-height: 1.25;
+	margin: 1em 0;
+}
+
+p.secondary-lead {
+	color: $primary-text;
+	@include font-size(20px);
+	line-height: 1.25;
+	margin: 1em 0;
+}
+
+a {
+	color: $primary-link;
+}
+
+a:hover,
+a:focus {
+	text-decoration: none;
+}
+
+a.link {
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #205984;
+	cursor: pointer;
+	.fa {
+		color: $secondary-link;
+	}
+	&:hover,
+	&:focus {
+		color: $secondary-text;
+	}
+}
+
+/* ------------------- PlaceHolder Text ------------------ */
+.form-control::-webkit-input-placeholder {
+   color: $primary-text;
+}
+
+.form-control:-moz-placeholder { /* Firefox 18- */
+   color: $primary-text;  
+}
+
+.form-control::-moz-placeholder {  /* Firefox 19+ */
+   color: $primary-text;  
+}
+
+.form-control:-ms-input-placeholder {  
+   color: $primary-text;  
+}
+
+.has-warning .form-control::-webkit-input-placeholder,
+.has-error .form-control::-webkit-input-placeholder {
+    color: $alert;
+}
+
+.has-warning .form-control:-moz-placeholder,
+.has-error .form-control:-moz-placeholder {
+    color: $alert;
+}
+
+.has-warning .form-control::-moz-placeholder,
+.has-error .form-control::-moz-placeholder {
+    color: $alert;
+}
+
+.has-warning .form-control:-ms-input-placeholder,
+.has-error .form-control:-ms-input-placeholder {
+    color: $alert;
+}
+
+.form-control[disabled]::-webkit-input-placeholder,
+.form-control[readonly]::-webkit-input-placeholder,
+fieldset[disabled] .form-control::-webkit-input-placeholder {
+    color: $tertiary-text;
+}
+
+.form-control[disabled]:-moz-placeholder,
+.form-control[readonly]:-moz-placeholder,
+fieldset[disabled] .form-control:-moz-placeholder {
+    color: $tertiary-text;
+}
+
+.form-control[disabled]::-moz-placeholder,
+.form-control[readonly]::-moz-placeholder,
+fieldset[disabled] .form-control::-moz-placeholder {
+    color: $tertiary-text;
+}
+
+.form-control[disabled]:-ms-input-placeholder,
+.form-control[readonly]:-ms-input-placeholder,
+fieldset[disabled] .form-control:-ms-input-placeholder {
+    color: $tertiary-text;
+}

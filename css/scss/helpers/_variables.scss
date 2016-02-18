@@ -1,0 +1,38 @@
+// colors
+$university-blue: #004071;
+$ocean: #067FBC;
+$sky: #00A1DD;
+$orange: #F58220;
+$brown: #917C77;
+$black: #2A2F32;
+$shadow: #818992;
+$silver: #B3BFC6;
+$grey: #EDF0F1;
+$white: #F9F9F9;
+$red: #C82828;
+$faded-red: #FFF2E9;
+
+$alert: $red;
+$active: $orange;
+
+$primary-bg: $university-blue;
+$secondary-bg: $grey;
+$tertiary-bg: $black;
+
+$primary-text: $black;
+$secondary-text: $ocean;
+$tertiary-text: $shadow;
+
+$primary-link: $ocean;
+$secondary-link: $orange;
+
+$primary-border: $silver;
+$secondary-border: $orange;
+$tertiary-border: $university-blue;
+
+// Breakpoints
+$smallest: 320px;
+$smartphones: 479px;
+$tablet: 767px;
+$desktop: 991px;
+$largest: 1199px;

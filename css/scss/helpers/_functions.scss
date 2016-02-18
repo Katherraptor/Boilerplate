@@ -1,0 +1,43 @@
+$loops : 0;
+@function approximateSq($num, $approx) {
+  $root : (( $num / $approx ) + $approx) / 2;
+  @return $root;
+}
+
+@function sqrt($num) {
+  $root:0;
+  $testRoot : 0;
+  $upperBounds : round($num / 2) + 1;
+  $loops : $upperBounds;
+  @for $test from 2 through $upperBounds {
+    $sq : $test * $test;
+    @if $sq <= $num {
+      $testRoot : $test;
+    }
+  }  
+  
+  $root : (approximateSq($num, $testRoot));
+  
+  @return $root;
+}
+
+@function pythagorean($size) {
+	@return sqrt(($size*$size)/2);
+}
+
+@function pixelify($value) {
+	@return ($value * 1px);
+}
+
+@function calculateRem($size) {
+	$remSize: $size / 16px;
+	@return $remSize * 1rem;
+}
+
+@function black($opacity) {
+	@return rgba(0,0,0,$opacity);
+}
+
+@function white($opacity) {
+	@return rgba(255,255,255,$opacity);
+}
