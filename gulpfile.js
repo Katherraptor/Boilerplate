@@ -77,23 +77,19 @@ gulp.task('css', function() {
 
 gulp.task('scripts', function() {
   gulp.src(paths.js)
+  .pipe(plumber({ errorHandler: onError }))
   .pipe(jshint(options.jshint))
   .pipe(jshint.reporter(options.jshint_reporter))
   .pipe(concat('all.js'))
   .pipe(gulpif(options.production, rename({suffix: '.min'})))
   .pipe(gulpif(options.production, uglify( options.uglify )))
-  .on('error', function(err) {
-    beep([0, 0, 0]);
-    gutil.log(err.message);
-    this.emit('end');
-  })
   .pipe(gulp.dest(dests.js))
   .pipe(livereload());
 });
 
 gulp.task('imageOptimize', function() {
   gulp.src(paths.images)
-  .pipe(plumber({errorHandler: onError}))
+  .pipe(plumber({ errorHandler: onError }))
   .pipe(newer(dests.images))
   .pipe(imageMin(options.imagemin))
   .pipe(gulp.dest(dests.images));
