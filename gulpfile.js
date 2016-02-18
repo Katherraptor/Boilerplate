@@ -16,10 +16,8 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     plumber = require('gulp-plumber'),
     gulpif = require('gulp-if'),
-    notify = require('gulp-notify'),
     gutil = require('gulp-util'),
-    beep = require('beepbeep'),
-    map = require('map-stream');
+    beep = require('beepbeep');
 
 var paths = {
     //  Point cssSrc to the top file for your Less or Sass
