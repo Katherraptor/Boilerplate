@@ -18,7 +18,8 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     notify = require('gulp-notify'),
     gutil = require('gulp-util'),
-    beep = require('beepbeep');
+    beep = require('beepbeep'),
+    map = require('map-stream');
 
 var paths = {
     //  Point cssSrc to the top file for your Less or Sass
@@ -48,8 +49,10 @@ var paths = {
 };
 
 var onError = function(err) {
+  var displayErr = gutil.colors.red(err.message);
   beep([0, 0, 0]);
-  gutil.log(gutil.colors.red(err));
+  gutil.log(displayErr);
+  this.emit('end');
 };
 
 gulp.task('connect', function() {
@@ -78,10 +81,14 @@ gulp.task('scripts', function() {
   gulp.src(paths.js)
   .pipe(jshint(options.jshint))
   .pipe(jshint.reporter(options.jshint_reporter))
-  .pipe(plumber({ errorHandler: onError }))
   .pipe(concat('all.js'))
   .pipe(gulpif(options.production, rename({suffix: '.min'})))
   .pipe(gulpif(options.production, uglify( options.uglify )))
+  .on('error', function(err) {
+    beep([0, 0, 0]);
+    gutil.log(err.message);
+    this.emit('end');
+  })
   .pipe(gulp.dest(dests.js))
   .pipe(livereload());
 });

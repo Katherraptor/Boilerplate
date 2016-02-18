@@ -7,7 +7,7 @@ $('h2').on('click', function() {
 });
 
 function showAlert() {
-alert('Hello World!');
+alert('Hello World!';
 }
 
 $(document).ready(function() {

@@ -44,6 +44,7 @@ h5 {
 	@include respondTo(sm) {
 		@include font-size(14px);
 	}
+	@include madeupmixin();
 }
 
 h6 {
