@@ -16,84 +16,110 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     plumber = require('gulp-plumber'),
     gulpif = require('gulp-if'),
-    notify = require('gulp-notify');
+    notify = require('gulp-notify'),
+    gutil = require('gulp-util'),
+    beep = require('beepbeep');
 
-// Gulp Paths -- set production to false for unminified CSS/JS
-var production = true,
-    cssTopFile = 'css/scss/site.scss',
-    cssPartials = 'css/scss/*/**',
-    cssDestination = 'css/',
-    cssMapsDestination = 'maps',
-    jsFiles = 'js/partials/*.js',
-    jsDestination = 'js/',
-    images = 'img/raw/**',
-    imagesDestination = 'img/';
+var paths = {
+    //  Point cssSrc to the top file for your Less or Sass
+    cssSrc: 'css/scss/site.scss',
+    // Point cssParts to the partial files called from your topfile
+    cssParts: 'css/scss/*/**',
+    js: 'js/partials/*.js',
+    images: 'img/imgRaw/**',
+    imagesDist: 'img/imgDist/*.*',
+    html: './*.html',
+    root: './',
+},
+  dests = {
+      css: 'css/',
+      cssMaps: 'maps',
+      js: 'js/',
+      images: 'img/imgDist/',
+  },
+  options = {
+    // set production to false for unminified CSS/JS
+    production: true,
+    autoprefix: 'last 3 versions',
+    imagemin: { optimizationLevel: 3, progressive: true, interlaced: true},
+    jshint: '',
+    jshint_reporter: stylish,
+    uglify: { mangle: false }
+};
+
+var onError = function(err) {
+  beep([0, 0, 0]);
+  gutil.log(gutil.colors.red(err));
+};
 
 gulp.task('connect', function() {
   connect.server({
-    root: './',
+    root: paths.root,
     livereload: true
   });
 });
 
 gulp.task('css', function() {
-  gulp.src(cssTopFile)
-  .pipe(plumber())
+  gulp.src(paths.cssSrc)
+  .pipe(plumber({ errorHandler: onError }))
   .pipe(sourcemaps.init())
-  .pipe(gulpif('*.scss', sass().on('error', sass.logError)))
+  .pipe(gulpif('*.scss', sass()))
   .pipe(gulpif('*.less', less()))
-  .pipe(autoprefixer("last 3 versions"))
-  .pipe(gulpif(production, rename({suffix: '.min'})))
-  .pipe(gulpif(production, cssnano()))
-  .pipe(sourcemaps.write(cssMapsDestination))
+  .pipe(autoprefixer(options.autoprefix))
+  .pipe(gulpif(options.production, rename({suffix: '.min'})))
+  .pipe(gulpif(options.production, cssnano()))
+  .pipe(sourcemaps.write(dests.cssMaps))
   .pipe(plumber.stop())
-  .pipe(gulp.dest(cssDestination))
+  .pipe(gulp.dest(dests.css))
   .pipe(livereload());
 });
 
 gulp.task('scripts', function() {
-  gulp.src(jsFiles)
-  .pipe(jshint())
-  .pipe(jshint.reporter(stylish))
-  .pipe(plumber())
+  gulp.src(paths.js)
+  .pipe(jshint(options.jshint))
+  .pipe(jshint.reporter(options.jshint_reporter))
+  .pipe(plumber({ errorHandler: onError }))
   .pipe(concat('all.js'))
-  .pipe(gulpif(production, rename({suffix: '.min'})))
-  .pipe(gulpif(production, uglify()))
-  .pipe(gulp.dest(jsDestination))
+  .pipe(gulpif(options.production, rename({suffix: '.min'})))
+  .pipe(gulpif(options.production, uglify( options.uglify )))
+  .pipe(gulp.dest(dests.js))
   .pipe(livereload());
 });
 
 gulp.task('imageOptimize', function() {
-  gulp.src(images)
-  .pipe(newer(imagesDestination))
-  .pipe(imageMin({
-    optimizationLevel: 3,
-    progressive: true,
-    interlaced: true}))
-  .pipe(gulp.dest(imagesDestination))
+  gulp.src(paths.images)
+  .pipe(plumber({errorHandler: onError}))
+  .pipe(newer(dests.images))
+  .pipe(imageMin(options.imagemin))
+  .pipe(gulp.dest(dests.images));
+});
+
+gulp.task('imageReload', function() {
+  gulp.src(paths.imagesDist)
   .pipe(livereload());
 });
 
 gulp.task('html', function(){
-  gulp.src('./*.html')
+  gulp.src(paths.html)
     .pipe(livereload());
 });
 
 gulp.task('watch:scripts', function() {
-  gulp.watch(jsFiles, ['scripts']);
+  gulp.watch(paths.js, ['scripts']);
 });
 
 gulp.task('watch:images', function() {
-  gulp.watch(images, ['imageOptimize']);
+  gulp.watch(paths.images, ['imageOptimize']);
+  gulp.watch(paths.imagesDist, ['imageReload']);
 });
 
 gulp.task('watch:html', function(){
-  gulp.watch(['./*.html'], ['html'])
+  gulp.watch([paths.html], ['html'])
 });
 
 gulp.task('watch:css', ['css'], function(){
   livereload.listen();
-  gulp.watch(cssPartials, ['css']);
+  gulp.watch(paths.cssParts, ['css']);
 });
 
 gulp.task('default', ['watch:css', 'connect', 'watch:html', 'watch:scripts', 'watch:images']);
