@@ -17,7 +17,8 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     gulpif = require('gulp-if'),
     gutil = require('gulp-util'),
-    beep = require('beepbeep');
+    beep = require('beepbeep'),
+    notify = require('gulp-notify');
 
 var paths = {
     //  Point cssSrc to the top file for your Less or Sass
@@ -49,6 +50,7 @@ var paths = {
 var onError = function(err) {
   var displayErr = gutil.colors.red(err.message);
   beep([0, 0, 0]);
+  notify().write(err.message);
   gutil.log(displayErr);
   this.emit('end');
 };

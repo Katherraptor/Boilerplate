@@ -3,5 +3,5 @@ function showAlert() {
 }
 
 $(document).ready(function() {
-	showAlert();
+	//showAlert();
 });
