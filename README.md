@@ -11,10 +11,10 @@ $ npm install -g bower
 ```
 To add dependencies to our project you'd add them to the bower.json file found in the root folder of the project. We decided not to include any dependencies by default as our projects vary so frequently on which ones are required. We'll handle installing these bower dependencies with our gulpfile.  
 
-To Install Gulp globally run this command
+To Install Gulp globally run this command  
 ```
 $ npm install -g gulp
-```
+```  
 This should mean you should be able to run ```gulp -v``` anywhere on your system and get your global gulp version number back. Next we'll need to install Gulp locally in your project. Navigate to your project root folder and run this command.  
 ```
 $ npm install gulp
