@@ -5,28 +5,29 @@ To expedite the initialization of front end projects we have put together this q
 If you don't already have Node.js installed on our system navigate to (https://nodejs.org/en/ "Nodejs.org") to download. This should install both node.js and the Node Package Manager (npm) on your system. Once installed you should be able to run ```$ node -v``` and ```$ npm -v``` on your command line and see your version number respectively.
 
 ## Step 2: Install Bower & Gulp
-Bower can be installed once globally but to work properly you'll need gulp installed both globally on your system and locally in your project. Thankfully both of these tasks can be handled by npm. Open git bash or command line run:
+Bower can be installed once globally but to work properly you'll need gulp installed both globally on your system and locally in your project. Thankfully both of these tasks can be handled by npm. Open git bash or command line run:  
 ```
 $ npm install -g bower
 ```
-To add dependencies to our project you'd add them to the bower.json file found in the root folder of the project. We decided not to include any dependencies by default as our projects vary so frequently on which ones are required. We'll handle installing these bower dependencies with our gulpfile.
+To add dependencies to our project you'd add them to the bower.json file found in the root folder of the project. We decided not to include any dependencies by default as our projects vary so frequently on which ones are required. We'll handle installing these bower dependencies with our gulpfile.  
 
-To Install Gulp globally run this command
+To Install Gulp globally run this command  
 ```
 $ npm install -g gulp-cli
+```  
+This should mean you should be able to run ```gulp -v``` anywhere on your system and get your global gulp version number back. Next we'll need to install Gulp locally in your project. Navigate to your project root folder and run this command.  
 ```
-This should mean you should be able to run ```gulp -v``` anywhere on your system and get your global gulp version number back. Next we'll need to install Gulp locally in your project. Navigate to your project root folder and run this command.
 ```
 $ npm install gulp
 ```
-Because this boilerplate has a gulp dependency already specified in our package.json file we don't need to add a ```--save-dev ``` to the command.
+Because this boilerplate has a gulp dependency already specified in our package.json file we don't need to add a ```--save-dev ``` to the command.  
 
 ##Step 3: Install Gulp Plugins
-Our package.json specifies a number of npm plugins for our gulpfile to use. We'll need to install these plugins in our project. They'll be placed inside a node_modules folder in the project root. To install these plugins run this on your git bash or command line
+Our package.json specifies a number of npm plugins for our gulpfile to use. We'll need to install these plugins in our project. They'll be placed inside a node_modules folder in the project root. To install these plugins run this on your git bash or command line  
 ```
 $ npm install
 ```
-Npm will loop through our package.json file and install all our gulp dependencies we have listed.
+Npm will loop through our package.json file and install all our gulp dependencies we have listed.  
 
 ##Step 4: Set Gulp Paths
 In our gulpfile.js you'll find some variable objects: paths, dests and options. The properties for each object have straight-forward names descriptive of their use and should be set before the first build. Important properties to note:
