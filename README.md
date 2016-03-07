@@ -29,10 +29,10 @@ $ npm install
 Npm will loop through our package.json file and install all our gulp dependencies we have listed.  
 
 ##Step 4: Set Gulp Paths
-In our gulpfile.js you'll find some variable objects: paths, dests and options. The properties for each object have straight-forward names descriptive of their use and should be set before the first build. Important properties to note:  
-1. paths.cssSrc points to the topfile of either your less or sass file structure, the file that imports all your partial files.  
-2. paths.cssParts points to the folder where all your scss/less partial files are placed  
-3. removing the initial backslash from your file paths for css, js and images allows gulp.watch to watch not just for existing files but also for new ones  
+In our gulpfile.js you'll find some variable objects: paths, dests and options. The properties for each object have straight-forward names descriptive of their use and should be set before the first build. Important properties to note:  <br />
+1. paths.cssSrc points to the topfile of either your less or sass file structure, the file that imports all your partial files.  <br />
+2. paths.cssParts points to the folder where all your scss/less partial files are placed  <br />
+3. removing the initial backslash from your file paths for css, js and images allows gulp.watch to watch not just for existing files but also for new ones  <br />
 4. options.production when set to true will minify css and js files, when set to false these files will output unminified  
 
 ##Step 5: Run Gulp Tasks
