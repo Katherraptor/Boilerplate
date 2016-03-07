@@ -18,7 +18,8 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     gutil = require('gulp-util'),
     beep = require('beepbeep'),
-    notify = require('gulp-notify');
+    notify = require('gulp-notify'),
+    bower = require('gulp-bower');
 
 var paths = {
     //  Point cssSrc to the top file for your Less or Sass
@@ -36,6 +37,7 @@ var paths = {
       cssMaps: 'maps',
       js: 'js/',
       images: 'img/imgDist/',
+      bowerDir: './bower_components'
   },
   options = {
     // set production to false for unminified CSS/JS
@@ -54,6 +56,10 @@ var onError = function(err) {
   gutil.log(displayErr);
   this.emit('end');
 };
+
+gulp.task('bower', function() {
+  return bower().pipe(gulp.dest(dests.bowerDir));
+});
 
 gulp.task('connect', function() {
   connect.server({
@@ -97,7 +103,7 @@ gulp.task('imageOptimize', function() {
   .pipe(gulp.dest(dests.images));
 });
 
-gulp.task('imageReload', function() {
+gulp.task('imageReload', ['imageOptimize'], function() {
   gulp.src(paths.imagesDist)
   .pipe(livereload());
 });
@@ -112,8 +118,7 @@ gulp.task('watch:scripts', function() {
 });
 
 gulp.task('watch:images', function() {
-  gulp.watch(paths.images, ['imageOptimize']);
-  gulp.watch(paths.imagesDist, ['imageReload']);
+  gulp.watch(paths.images, ['imageReload']);
 });
 
 gulp.task('watch:html', function(){
@@ -125,4 +130,4 @@ gulp.task('watch:css', ['css'], function(){
   gulp.watch(paths.cssParts, ['css']);
 });
 
-gulp.task('default', ['watch:css', 'connect', 'watch:html', 'watch:scripts', 'watch:images']);
+gulp.task('default', ['bower', 'watch:css', 'connect', 'watch:html', 'watch:scripts', 'watch:images']);
