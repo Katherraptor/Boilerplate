@@ -37,8 +37,8 @@ In our gulpfile.js you'll find some variable objects: paths, dests and options. 
 
 ##Step 5: Run Gulp Tasks
 Gulp is a task manager, with this boilerplate gulp setup we've automated the following tasks:
-1. Install Bower dependencies  
-2. Less/Sass preprocessing, compiling to CSS and minification  
+1. Install Bower dependencies  \s\s
+2. Less/Sass preprocessing, compiling to CSS and minification  \s\s
 3. JavaScript Linting, Concatenation and minification  
 4. Watching less/sass/js files for changes and re-compiling/minifying on save  
 5. Error reporting on js lint failure or css precompiling as a system notification and sound  
