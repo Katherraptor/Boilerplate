@@ -30,21 +30,21 @@ Npm will loop through our package.json file and install all our gulp dependencie
 
 ##Step 4: Set Gulp Paths
 In our gulpfile.js you'll find some variable objects: paths, dests and options. The properties for each object have straight-forward names descriptive of their use and should be set before the first build. Important properties to note:
-- paths.cssSrc points to the topfile of either your less or sass file structure, the file that imports all your partial files.
-- paths.cssParts points to the folder where all your scss/less partial files are placed
-- removing the initial backslash from your file paths for css, js and images allows gulp.watch to watch not just for existing files but also for new ones
-- options.production when set to true will minify css and js files, when set to false these files will output unminified
+	- paths.cssSrc points to the topfile of either your less or sass file structure, the file that imports all your partial files.
+	- paths.cssParts points to the folder where all your scss/less partial files are placed
+	- removing the initial backslash from your file paths for css, js and images allows gulp.watch to watch not just for existing files but also for new ones
+	- options.production when set to true will minify css and js files, when set to false these files will output unminified
 
 ##Step 5: Run Gulp Tasks
 Gulp is a task manager, with this boilerplate gulp setup we've automated the following tasks:
-- Install Bower dependencies
-- Less/Sass preprocessing, compiling to CSS and minification
-- JavaScript Linting, Concatenation and minification
-- Watching less/sass/js files for changes and re-compiling/minifying on save
-- Error reporting on js lint failure or css precompiling as a system notification and sound
-- Image optimization and compression
-- Launching a Node.js server
-- Reloading the browser on HTML, css and javascript changes
+	- Install Bower dependencies
+	- Less/Sass preprocessing, compiling to CSS and minification
+	- JavaScript Linting, Concatenation and minification
+	- Watching less/sass/js files for changes and re-compiling/minifying on save
+	- Error reporting on js lint failure or css precompiling as a system notification and sound
+	- Image optimization and compression
+	- Launching a Node.js server
+	- Reloading the browser on HTML, css and javascript changes
 We've collected all these tasks under the gulp default task so all you need to do on your git bash or command line is the following.
 ```
 $ gulp
