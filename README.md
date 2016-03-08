@@ -17,7 +17,6 @@ $ npm install -g gulp-cli
 ```  
 This should mean you should be able to run ```gulp -v``` anywhere on your system and get your global gulp version number back. Next we'll need to install Gulp locally in your project. Navigate to your project root folder and run this command.  
 ```
-```
 $ npm install gulp
 ```
 Because this boilerplate has a gulp dependency already specified in our package.json file we don't need to add a ```--save-dev ``` to the command.  
