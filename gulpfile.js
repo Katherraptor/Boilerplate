@@ -12,13 +12,13 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     newer = require('gulp-newer'),
     imageMin = require('gulp-imagemin'),
-    livereload = require('gulp-livereload'),
     connect = require('gulp-connect'),
     plumber = require('gulp-plumber'),
     gulpif = require('gulp-if'),
     gutil = require('gulp-util'),
     beep = require('beepbeep'),
     notify = require('gulp-notify'),
+    connectSSI = require('connect-ssi'),
     bower = require('gulp-bower');
 
 var paths = {
@@ -30,6 +30,7 @@ var paths = {
     images: 'img/imgRaw/**',
     imagesDist: 'img/imgDist/*.*',
     html: './*.html',
+    shtml: './*.shtml',
     root: './',
 },
   dests = {
@@ -64,6 +65,14 @@ gulp.task('bower', function() {
 gulp.task('connect', function() {
   connect.server({
     root: paths.root,
+    middleware: function() {
+      return [
+      require('connect-livereload')(),
+      connectSSI({
+        baseDir: __dirname
+      })
+      ];
+    },
     livereload: true
   });
 });
@@ -80,7 +89,7 @@ gulp.task('css', function() {
   .pipe(sourcemaps.write(dests.cssMaps))
   .pipe(plumber.stop())
   .pipe(gulp.dest(dests.css))
-  .pipe(livereload());
+  .pipe(connect.reload());
 });
 
 gulp.task('scripts', function() {
@@ -92,7 +101,7 @@ gulp.task('scripts', function() {
   .pipe(gulpif(options.production, rename({suffix: '.min'})))
   .pipe(gulpif(options.production, uglify( options.uglify )))
   .pipe(gulp.dest(dests.js))
-  .pipe(livereload());
+  .pipe(connect.reload());
 });
 
 gulp.task('imageOptimize', function() {
@@ -105,12 +114,12 @@ gulp.task('imageOptimize', function() {
 
 gulp.task('imageReload', ['imageOptimize'], function() {
   gulp.src(paths.imagesDist)
-  .pipe(livereload());
+  .pipe(connect.reload());
 });
 
 gulp.task('html', function(){
-  gulp.src(paths.html)
-    .pipe(livereload());
+  gulp.src([paths.html, paths.shtml])
+    .pipe(connect.reload());
 });
 
 gulp.task('watch:scripts', function() {
@@ -122,11 +131,10 @@ gulp.task('watch:images', function() {
 });
 
 gulp.task('watch:html', function(){
-  gulp.watch([paths.html], ['html'])
+  gulp.watch([paths.html, paths.shtml], ['html'])
 });
 
 gulp.task('watch:css', ['css'], function(){
-  livereload.listen();
   gulp.watch(paths.cssParts, ['css']);
 });
 

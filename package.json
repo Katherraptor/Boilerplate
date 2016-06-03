@@ -4,7 +4,10 @@
   "description": "A Simple Boilerplate for Frontend Projects",
   "main": "index.html",
   "dependencies": {
-    "gulp": "^3.9.1"
+    "connect-livereload": "^0.5.4",
+    "connect-ssi": "^1.1.0",
+    "gulp": "^3.9.1",
+    "jshint": "^2.9.2"
   },
   "devDependencies": {
     "beepbeep": "^1.2.0",

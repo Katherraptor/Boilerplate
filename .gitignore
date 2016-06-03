@@ -4,6 +4,7 @@
 *.exe
 *.o
 *.so
+*.css.map
 
 *.7z
 *.dmg
