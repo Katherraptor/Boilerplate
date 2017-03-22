@@ -73,7 +73,6 @@ gulp.task('connect', function() {
       })
       ];
     },
-    livereload: true
   });
 });
 
@@ -122,6 +121,10 @@ gulp.task('html', function(){
     .pipe(connect.reload());
 });
 
+gulp.task('shtml', function() {
+  gulp.src(paths.shtml).pipe(connect.reload());
+});
+
 gulp.task('watch:scripts', function() {
   gulp.watch(paths.js, ['scripts']);
 });
@@ -134,8 +137,12 @@ gulp.task('watch:html', function(){
   gulp.watch([paths.html, paths.shtml], ['html'])
 });
 
+gulp.task('watch:shtml', function() {
+  gulp.watch(paths.shtml, ['shtml']);
+});
+
 gulp.task('watch:css', ['css'], function(){
   gulp.watch(paths.cssParts, ['css']);
 });
 
-gulp.task('default', ['bower', 'watch:css', 'connect', 'watch:html', 'watch:scripts', 'watch:images']);
+gulp.task('default', ['bower', 'watch:css', 'connect', 'watch:html', 'watch:shtml', 'watch:scripts', 'watch:images']);

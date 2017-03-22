@@ -1,7 +1,9 @@
-function showAlert() {
-	alert('Hello World!');
-}
-
 $(document).ready(function() {
-	//showAlert();
+	function swap(a,b) {
+		a = a + b;
+		b = a - b;
+		a = a - b;
+		console.log(a, b);
+	}
+	swap(10,15);
 });
