@@ -5,10 +5,11 @@ var gulp = require('gulp'),
     cssnano = require('gulp-cssnano'),
     autoprefixer = require('gulp-autoprefixer'),
     sourcemaps = require('gulp-sourcemaps'),
-    jshint = require('gulp-jshint'),
-    stylish = require('jshint-stylish'),
+    eslint = require('gulp-eslint'),
+    babel = require('gulp-babel'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
+    beautify = require('gulp-beautify'),
     rename = require('gulp-rename'),
     newer = require('gulp-newer'),
     imageMin = require('gulp-imagemin'),
@@ -42,12 +43,13 @@ var paths = {
   },
   options = {
     // set production to false for unminified CSS/JS
-    production: true,
+    production: false,
+    // Set to false to prevent Babel from running, please see package.json for eslint config changes when removing es6 support
+    es6: true,
     autoprefix: 'last 3 versions',
     imagemin: { optimizationLevel: 3, progressive: true, interlaced: true},
-    jshint: '',
-    jshint_reporter: stylish,
-    uglify: { mangle: false }
+    uglify: { mangle: false },
+    beautify: { indent_size: 4, indent_char: " " }
 };
 
 var onError = function(err) {
@@ -91,14 +93,22 @@ gulp.task('css', function() {
   .pipe(connect.reload());
 });
 
-gulp.task('scripts', function() {
+gulp.task('lint', function() {
+  gulp.src(paths.js)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
+gulp.task('scripts', ['lint'], function() {
   gulp.src(paths.js)
   .pipe(plumber({ errorHandler: onError }))
-  .pipe(jshint(options.jshint))
-  .pipe(jshint.reporter(options.jshint_reporter))
+  .pipe(gulpif(options["es6"], babel({
+      presets: ['es2015']
+    })))
   .pipe(concat('all.js'))
   .pipe(gulpif(options.production, rename({suffix: '.min'})))
-  .pipe(gulpif(options.production, uglify( options.uglify )))
+  .pipe(gulpif(options.production, uglify( options.uglify ), beautify( options.beautify )))
   .pipe(gulp.dest(dests.js))
   .pipe(connect.reload());
 });

@@ -6,4 +6,8 @@ $(document).ready(function() {
 		console.log(a, b);
 	}
 	swap(10,15);
+
+
 });
+
+const add = (x, y) => x + y;
