@@ -1,3 +1,46 @@
+@mixin padding($top: null, $right: null, $bottom: null, $left: null) {
+	padding-top: $top;
+	padding-right: $right;
+	padding-bottom: $bottom;
+	padding-left: $left;
+}
+
+@mixin margin($top: null, $right: null, $bottom: null, $left: null) {
+	margin-top: $top;
+	margin-right: $right;
+	margin-bottom: $bottom;
+	margin-left: $left;
+}
+
+@mixin margin-centered($top: null, $bottom: null) {
+	margin-top: $top;
+	margin-right: auto;
+	margin-bottom: $bottom;
+	margin-left: auto;
+}
+
+//null variables pass with no value and are excluded from output unless we assign them a value
+//.nav__item {
+//	@include padding($top: 2em, $bottom: 2em);
+//}
+
+$directions: (top, right, bottom, left);
+@mixin generate-spacing($property) {
+  @each $dir in $directions {
+    &-#{$dir} {
+      @each $size, $value in $sizes {
+        &-#{$size} {
+          #{$property}-#{$dir}: $value;
+        }
+      }
+    }
+  }
+}
+//Generates spacing for property using $sizes map in _variables.css
+//.margin {
+//  @include generate-spacing(margin);
+//}
+
 @mixin position($position, $args) {
   @each $o in top right bottom left {
         $i: index($args, $o);
@@ -22,16 +65,14 @@
         @include position("relative", $args);
 }
 
-/*
-  @include absolute(top 0 left 1em);
-  	position: absolute;
-	top: 0;
-	left: 1em;
-  @include fixed(top 1em left "WAT? A STRING?!" right 10% bottom);
-  	position: fixed;
-	top: 1em;
-	right: 10%;
-*/
+//  @include absolute(top 0 left 1em);
+//  	position: absolute;
+//	    top: 0;
+//	    left: 1em;
+//  @include fixed(top 1em left "WAT? A STRING?!" right 10% bottom);
+//  	position: fixed;
+//	    top: 1em;
+//	    right: 10%;
 
 @mixin font-size($size) {
 	font-size: $size;
@@ -43,11 +84,9 @@
 	line-height: (0.125 * $heightValue) + rem;
 }
 
-/*
-  @include font-size(14px)
-	font-size: 14px; //Will be overridden if browser supports rem
-	font-size: 0.8rem;
-*/
+//  @include font-size(14px)
+//	font-size: 14px; //Will be overridden if browser supports rem
+//	font-size: 0.8rem;
 
 @mixin box-sizing($box-model) {
 	-webkit-box-sizing: $box-model;
@@ -55,12 +94,10 @@
 	box-sizing: $box-model;
 }
 
-/*
-  @include box-sizing(border-box);
-  	-webkit-box-sizing:border-box;
-  	-moz-box-sizing: border-box;
-  	box-sizing: border-box;
-*/
+//  @include box-sizing(border-box);
+//  	-webkit-box-sizing:border-box;
+//  	-moz-box-sizing: border-box;
+//  	box-sizing: border-box;
 
 @mixin keyframes($animation-name) {
 	@-webkit-keyframes #{$animation-name} {
@@ -80,9 +117,7 @@
 	}
 }
 
-/*
-  @include keyframes(slide-down) { 0% { opacity: 1; } 90% { opacity: 0; }}
-*/
+//  @include keyframes(slide-down) { 0% { opacity: 1; } 90% { opacity: 0; }}
 
 @mixin animation($str) {
 	-webkit-animation: #{$str};
@@ -92,9 +127,7 @@
 	animation: #{$str};
 }
 
-/*
-  @include animation('slide-down 5s 3');
-*/
+//  @include animation('slide-down 5s 3');
 
 @mixin opacity($opacity) {
 	opacity: $opacity;
@@ -103,9 +136,7 @@
 	zoom: 1;
 }
 
-/*
-  @include opacity(.0.8);
-*/
+//  @include opacity(.0.8);
 
 @mixin box-emboss($opacity, $opacity2) {
 	box-shadow:white($opacity) 0 1px 0, inset black($opacity) 0 1px 0;
@@ -143,36 +174,29 @@
 	}
 }
 
-/*
-  @include triangle within a pseudo element and add positioning properties
-  $direction: up, down, left, right
-*/
+//  @include triangle within a pseudo element and add positioning properties
+//  $direction: up, down, left, right
 
-@mixin respondTo($media) {
-	@if $media == iphone {
-		@media only screen and (max-width: $smallest) { @content; }
-	}
-	@else if $media == xs {
-		@media only screen and (max-width: $smartphones) { @content; }
-	}
-	@else if $media == sm {
-		@media only screen and (max-width: $tablet) { @content; }
-	}
-	@else if $media == md {
-		@media only screen and (max-width: $desktop) { @content; }
-	}
-	@else if $media == lg {
-		@media only screen and (max-width: $largest) { @content; }
-	}
+@mixin respondMin($media) {
+    @if $media == sm {
+        @media only screen and (min-width: $smartphones) { @content; }
+    }
+    @if $media == md {
+        @media only screen and (min-width: $tablet) { @content; }
+    }
+    @if $media == lg {
+        @media only screen and (min-width: $desktop) { @content; }
+    }
+    @if $media == xl {
+        @media only screen and (min-width: $largest) { @content; }
+    }
 }
 
-/*
-  @include respondTo(iphone) { width: 100%; float: none; margin: 0; }
-  	@media only screen and (max-width: 320px){
-	  .sidebar{width: 100%; float: none; margin: 0;}
-	}
 
-*/
+//  @include respondTo(sm) { width: 100%; float: none; margin: 0; }
+//  	@media only screen and (max-width: 320px){
+//	        .sidebar{width: 100%; float: none; margin: 0;}
+//	    }
 
 @mixin ghostVerticalAlign($pseudoEl: before) {
 	&:#{$pseudoEl} {

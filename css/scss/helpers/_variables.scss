@@ -30,9 +30,25 @@ $primary-border: $silver;
 $secondary-border: $orange;
 $tertiary-border: $university-blue;
 
+// Spacing & Sizing
+$spacing-xs: 0.5em;
+$spacing-sm: 1em;
+$spacing-md: 1.5em;
+$spacing-lg: 2em;
+$spacing-xl: 3em;
+$spacing-xxl: 4em;
+
+$sizes: (
+	xs: 0.5em,
+	sm: 1em,
+	md: 1.5em,
+	lg: 2em,
+	xl: 3em,
+	xxl: 4em
+);
+
 // Breakpoints
-$smallest: 320px;
-$smartphones: 479px;
-$tablet: 767px;
-$desktop: 991px;
-$largest: 1199px;
+$smartphones: 480px;
+$tablet: 768px;
+$desktop: 992px;
+$largest: 1200px;

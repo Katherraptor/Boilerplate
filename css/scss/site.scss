@@ -1,22 +1,57 @@
-/* Helpers -- SASS Tools/Functions/Helpers*/
+// Helpers -- SASS Tools/Functions/Helpers
 @import 'helpers/variables';
 @import 'helpers/functions';
 @import 'helpers/mixins';
 @import 'helpers/helpers';
 
-/* Base -- Boilerplate Stuff */
+// Base -- Boilerplate Stuff
 @import 'base/normalize';
 @import 'base/typography';
 
-/* Components -- reusable site modules */
+// Components -- reusable site modules
 @import 'components/buttons';
 @import 'components/navigation';
 @import 'components/forms';
 
-/* Layout -- styles for main sections of the layout */
+// Layout -- styles for main sections of the layout
+@import 'layout/global';
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/sidebar';
 
-/* Pages -- Page Specific Styles */
+// Pages -- Page Specific Styles
 @import 'pages/home';
+
+//BEM PREFERRED STYLE
+//
+//.block {
+//	&--modifier {
+//	
+//	}
+//	general: styles;
+//	mobile: styles;
+//	@include respondTo(sm) {
+//		// large mobile styles
+//		&__element {
+//	
+//		}
+//	}
+//	@include respondTo(md) {
+//		// tablet styles
+//		&__element {
+//	
+//		}
+//	}
+//	@include respondTo(lg) {
+//		// desktop styles
+//		&__element {
+//	
+//		}
+//	}
+//	@include respondTo(xl) {
+//		// large desktop styles
+//		&__element {
+//	
+//		}
+//	}
+//}
