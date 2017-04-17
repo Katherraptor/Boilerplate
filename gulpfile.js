@@ -27,9 +27,9 @@ var paths = {
     cssSrc: 'css/scss/site.scss',
     // Point cssParts to the partial files called from your topfile
     cssParts: 'css/scss/*/**',
-    js: 'js/partials/*.js',
-    images: 'img/imgRaw/**',
-    imagesDist: 'img/imgDist/*.*',
+    js: 'js/src/*.js',
+    images: 'img/src/**',
+    imagesDist: 'img/dist/*.*',
     html: './*.html',
     shtml: './*.shtml',
     root: './',
@@ -37,8 +37,8 @@ var paths = {
   dests = {
       css: 'css/',
       cssMaps: 'maps',
-      js: 'js/',
-      images: 'img/imgDist/',
+      js: 'js/dist/',
+      images: 'img/dist/',
       bowerDir: './bower_components'
   },
   options = {
