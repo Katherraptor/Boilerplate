@@ -1,0 +1,12 @@
+// text helpers
+.text--centered { text-align: center; }
+.text--left { text-align: left; }
+
+// spacing helpers
+.margin {
+  @include generate-spacing(margin);
+}
+
+.padding {
+  @include generate-spacing(padding);
+}
