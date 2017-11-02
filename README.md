@@ -21,14 +21,14 @@ $ npm install gulp
 ```
 Because this boilerplate has a gulp dependency already specified in our package.json file we don't need to add a ```--save-dev ``` to the command.  
 
-##Step 3: Install Gulp Plugins
+## Step 3: Install Gulp Plugins
 Our package.json specifies a number of npm plugins for our gulpfile to use. We'll need to install these plugins in our project. They'll be placed inside a node_modules folder in the project root. To install these plugins run this on your git bash or command line  
 ```
 $ npm install
 ```
 Npm will loop through our package.json file and install all our gulp dependencies we have listed.  
 
-##Step 4: Set Gulp Paths
+## Step 4: Set Gulp Paths
 In our gulpfile.js you'll find some variable objects: paths, dests and options. The properties for each object have straight-forward names descriptive of their use and should be set before the first build. Important properties to note:
 
 - paths.cssSrc points to the topfile of either your less or sass file structure, the file that imports all your partial files.
@@ -37,7 +37,7 @@ In our gulpfile.js you'll find some variable objects: paths, dests and options. 
 - options.production when set to true will minify css and js files, when set to false these files will output unminified
 
 
-##Step 5: Run Gulp Tasks
+## Step 5: Run Gulp Tasks
 Gulp is a task manager, with this boilerplate gulp setup we've automated the following tasks:
 
 - Install Bower dependencies
